@@ -1,0 +1,6 @@
+description: Run dockle
+
+steps:
+  - run:
+      name: Run dockle
+      command: dockle ${CIRCLE_PROJECT_REPONAME}
