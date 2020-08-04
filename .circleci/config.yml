@@ -1,0 +1,57 @@
+commands:
+    execute:
+        description: Run dockle
+        steps:
+            - run:
+                command: dockle ${CIRCLE_PROJECT_REPONAME}
+                name: Run dockle
+    install:
+        description: Install dockle
+        steps:
+            - run:
+                command: |-
+                    VERSION=$(
+                      curl --silent "https://api.github.com/repos/goodwithtech/dockle/releases/latest" | \
+                      grep '"tag_name":' | \
+                      sed -E 's/.*"v([^"]+)".*/\1/' \
+                    ) && curl -L -o dockle.deb https://github.com/goodwithtech/dockle/releases/download/v${VERSION}/dockle_${VERSION}_Linux-64bit.deb
+                    sudo dpkg -i dockle.deb && rm dockle.deb
+                name: Install the latest version of Dockle
+display:
+    source_url: https://github.com/Streetbees/dockle-orb
+examples:
+    build:
+        description: Install dockle
+        usage:
+            jobs:
+                build:
+                    docker:
+                        - image: <docker image>
+                    steps:
+                        - dockle/install
+                        - dockle/execute
+            orbs:
+                slack: streetbees/dockle@dev
+            version: 2.1
+            workflows:
+                your-workflow:
+                    jobs:
+                        - build
+executors:
+    python:
+        docker:
+            - image: circleci/python:<<parameters.version>>
+        parameters:
+            version:
+                default: 3.6.5
+                type: string
+        resource_class: small
+jobs:
+    install-and-execute:
+        executor: python
+        steps:
+            - install
+            - execute
+version: 2.1
+workflows: {}
+

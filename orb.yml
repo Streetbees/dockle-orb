@@ -1,6 +1,0 @@
----
-version: 2.1
-
-
-description: >
-  Easily run the dockle tool inside a workflow.

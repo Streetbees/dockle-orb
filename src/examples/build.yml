@@ -1,0 +1,20 @@
+description: "Install dockle"
+
+usage:
+  version: 2.1
+
+  orbs:
+    slack: streetbees/dockle@dev
+
+  jobs:
+    build:
+      docker:
+        - image: <docker image>
+      steps:
+        - dockle/install
+        - dockle/execute
+
+  workflows:
+    your-workflow:
+      jobs:
+        - build

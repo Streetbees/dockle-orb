@@ -1,5 +1,4 @@
 description: Install dockle
-
 steps:
   # yamllint disable rule:line-length
   - run:
