@@ -4,9 +4,10 @@ steps:
   - run:
       name: Install the latest version of Dockle
       command: |
-        VERSION=$(
-          curl --silent "https://api.github.com/repos/goodwithtech/dockle/releases/latest" | \
-          grep '"tag_name":' | \
-          sed -E 's/.*"v([^"]+)".*/\1/' \
-        ) && curl -L -o dockle.deb https://github.com/goodwithtech/dockle/releases/download/v${VERSION}/dockle_${VERSION}_Linux-64bit.deb
+        #VERSION=$(
+        #  curl --silent "https://api.github.com/repos/goodwithtech/dockle/releases/latest" | \
+        #  grep '"tag_name":' | \
+        #  sed -E 's/.*"v([^"]+)".*/\1/' \
+        #) 
+        VERSION=0.2.4 && curl -L -o dockle.deb https://github.com/goodwithtech/dockle/releases/download/v${VERSION}/dockle_${VERSION}_Linux-64bit.deb
         sudo dpkg -i dockle.deb && rm dockle.deb
